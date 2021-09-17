@@ -17,8 +17,14 @@ app.use(express.json());
 const getIndex = require("./controllers/index.controller");
 app.get("/", getIndex);
 
-console.log("hi")
+const { getMuseum } = require("./controllers/museum.controller");
+app.get("/museum", getMuseum);
+
+const { getPainting } = require("./controllers/paintings.controller");
+app.get("/paintings", getPainting);
+
+console.log("hi");
 
 app.listen(3020, () => {
-    console.log(`Server started on port ${3020}`);
-  });
+  console.log(`Server started on port ${3020}`);
+});
