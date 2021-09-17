@@ -14,6 +14,8 @@ app.use(express.json());
 
 // mongoose.connect(MONGO_URL);
 
+const getIndex = require("./controllers/index.controller");
+app.get("/", getIndex);
 
 console.log("hi")
 
