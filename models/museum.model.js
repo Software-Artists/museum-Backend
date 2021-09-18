@@ -14,20 +14,19 @@ const museumSchema = new mongoose.Schema({
 class Museum {
   constructor(
     name,
-    location,
-    museum_image,
-    description,
+       location,
     event_description,
     event_description_image,
-    ticket_price
+    ticket_price,
+    museum_image,
   ) {
     this.name = name;
     this.location = location;
-    this.museum_image = museum_image;
-    this.description = description;
-    this.event_description = event_description;
-    this.event_description_image = event_description_image;
-    this.ticket_price = ticket_price;
+    this.event_description=event_description;
+    this.event_description_image=event_description_image;
+    this.ticket_price=ticket_price;
+    this.museum_image=museum_image;
+    
   }
 }
 const museumModel = mongoose.model("myMuseum", museumSchema);
