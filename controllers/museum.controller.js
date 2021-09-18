@@ -6,11 +6,6 @@ require("dotenv").config();
 const { museumModel, Museum } = require("../models/museum.model");
 
 
-
-
-  
-
-
 // const museumData = require("../data/mus.json");
 // console.log(museumData)
 const getMuseum = async (request, response) => {
@@ -19,8 +14,6 @@ const getMuseum = async (request, response) => {
   
  await axios.get('https://api-server-museum.herokuapp.com').then((museumData)=>{
   
-  
-
   const museumName = request.query.name;
 
   if (museumName) {
