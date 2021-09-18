@@ -19,30 +19,16 @@ const paintingsSchema = new mongoose.Schema({
 class Paintings {
   constructor(
     name,
-    location,
-    art_image1,
-    description_image1,
-    art_image2,
-    description_image2,
-    art_image3,
-    description_image3,
-    art_image4,
-    description_image4,
-    art_image5,
-    description_image5
+    title,
+    artist_display,
+    image_id,
+   
   ) {
     this.name = name;
-    this.location = location;
-    this.art_image1 = art_image1;
-    this.description_image1 = description_image1;
-    this.art_image2 = art_image2;
-    this.description_image2 = description_image2;
-    this.art_image3 = art_image3;
-    this.description_image3 = description_image3;
-    this.art_image4 = art_image4;
-    this.description_image4 = description_image4;
-    this.art_image5 = art_image5;
-    this.description_image5 = description_image5;
+    this.title = title;
+    this.artist_display = artist_display;
+    this.image_id = image_id;
+    
   }
 }
 

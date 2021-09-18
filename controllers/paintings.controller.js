@@ -5,33 +5,32 @@ require("dotenv").config();
 
 const { paintingsModel, Paintings } = require("../models/paintings.model");
 
-const museumData = require("../data/museum.json");
+const museumData = require("../data/mus.json");
 
 const getPainting = (request, response) => {
   const museumName = request.query.name;
 
   if (museumName) {
-    const museumArr = museumData.find((item) => {
-      return item.name.toLowerCase() === museumName.toLowerCase();
+    const museumArr = museumData.filter((item) => {
+     
+      return  item.name.toLowerCase() === museumName.toLowerCase();
+        
     });
-    console.log(museumArr);
 
-    let dataArr = new Paintings(
-      museumArr.name,
-      museumArr.location,
-      museumArr.art_image1,
-      museumArr.description_image1,
-      museumArr.art_image2,
-      museumArr.description_image2,
-      museumArr.art_image3,
-      museumArr.description_image3,
-      museumArr.art_image4,
-      museumArr.description_image4,
-      museumArr.art_image5,
-      museumArr.description_image5
+    
+    // console.log(museumArr);
+    let arr1=museumArr.map((paint) => {
+     return new Paintings(
+      paint.name,
+      paint.title,
+      paint.artist_display,
+      paint.image_id,
+      
+     
     );
-    //   console.log("Museum",Museum)
-    response.json(dataArr);
+  });
+     
+    response.json(arr1);
   } else {
     response.json(museumData);
   }
