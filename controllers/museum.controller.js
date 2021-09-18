@@ -1,24 +1,35 @@
 "use strict";
-
+const CircularJSON = require('circular-json');
 const axios = require("axios");
 require("dotenv").config();
 
 const { museumModel, Museum } = require("../models/museum.model");
 
-const museumData = require("../data/mus.json");
+
+
+
+  
+
+
+// const museumData = require("../data/mus.json");
 // console.log(museumData)
-const getMuseum = (request, response) => {
+const getMuseum = async (request, response) => {
+  // const museumData = await axios.get('https://api-server-museum.herokuapp.com');
+
+  
+ await axios.get('https://api-server-museum.herokuapp.com').then((museumData)=>{
+  
+  
+
   const museumName = request.query.name;
 
   if (museumName) {
-    const museumArr = museumData.filter((item) => {
+    const museumArr = museumData.data.filter((item) => {
      
       return  item.name.toLowerCase() === museumName.toLowerCase();
         
     });
-
-    
-    // console.log(museumArr);
+        // console.log(museumArr);
     let arr1=museumArr.map((mus) => {
      return new Museum(
       mus.name,
@@ -34,8 +45,11 @@ const getMuseum = (request, response) => {
       console.log("Museum",arr1)
     response.json(arr1);
   } else {
-    response.json(museumData);
+    response.json(museumData.data)
   }
+}).catch((error)=>{
+  console.log(error);
+  });
 };
 
 module.exports = {
