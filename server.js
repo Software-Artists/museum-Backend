@@ -8,11 +8,8 @@ require("dotenv").config();
 app.use(cors());
 app.use(express.json());
 
-// const PORT = process.env.PORT;
-// const MONGO_URL = process.env.MONGO_URL;
-// const DB_NAME = process.env.DB_NAME;
-
-// mongoose.connect(MONGO_URL);
+const MONGO_URL = process.env.MONGO_URL;
+mongoose.connect(MONGO_URL);
 
 //============================= modal,controller, seed were added:
 const {
@@ -20,8 +17,9 @@ const {
   createFeedBack,
 } = require("./controllers/feedback.controller");
 
-const seedFeedBack = require("./helper/feedback.seed");
 
+
+const seedFeedBack = require("./helper/feedback.seed");
 // seedFeedBack();
 
 app.get("/feedback", getFeedBack);
