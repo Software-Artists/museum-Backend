@@ -13,10 +13,10 @@ const getFeedBack = (request, response) => {
 
 //============================================================== Create Feedback:
 const createFeedBack = (request, response) => {
-  const { name, description } = request.body;
+  const { name, feedBackMessage } = request.body;
   const newFeedBack = new feedBackModel({
     name,
-    description,
+    feedBackMessage,
   });
   newFeedBack.save();
   response.json(newFeedBack);
