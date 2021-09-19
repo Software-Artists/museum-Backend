@@ -3,14 +3,14 @@
 const feedBackModel = require("../models/feedback.modal");
 
 const seedFeedBack = () => {
-  //=============================================== First Feedack:
+  //=============================================== First Feedback:
   const firstFeedBack = new feedBackModel({
     name: "Imad Elfarageen",
     feedBackMessage: "Thiswebsite  is really good !",
   });
   firstFeedBack.save();
 
-  //=============================================== Second Feedack:
+  //=============================================== Second Feedback:
   const secondFeedBack = new feedBackModel({
     name: "Mohammad Hamzeh",
     feedBackMessage: "good website !",
