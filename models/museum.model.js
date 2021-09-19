@@ -19,6 +19,7 @@ class Museum {
     event_description_image,
     ticket_price,
     museum_image,
+    id
   ) {
     this.name = name;
     this.location = location;
@@ -26,6 +27,7 @@ class Museum {
     this.event_description_image=event_description_image;
     this.ticket_price=ticket_price;
     this.museum_image=museum_image;
+    this.id=id
     
   }
 }
