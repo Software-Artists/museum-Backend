@@ -2,7 +2,8 @@
 const CircularJSON = require('circular-json');
 const axios = require("axios");
 require("dotenv").config();
-
+const Cache = require("../helper/cache.helper");
+let cacheObject = new Cache();
 const { museumModel, Museum } = require("../models/museum.model");
 
 
@@ -10,16 +11,28 @@ const { museumModel, Museum } = require("../models/museum.model");
 // console.log(museumData)
 const getMuseum = async (request, response) => {
   // const museumData = await axios.get('https://api-server-museum.herokuapp.com');
-
+  const museumName = request.query.id;
   
+  const shutTime = 30000000;
+  const time = (Date.now() - cacheObject.timeStamp) > shutTime;
+  if (time) {
+   
+    cacheObject = new Cache();
+  }
+  const findData = cacheObject.museum.find(
+    (mus) => mus.museumName === id
+  );
+  if (findData) {
+    response.json(findData.data);
+  } else {
+
+
  await axios.get('https://api-server-museum.herokuapp.com').then((museumData)=>{
   
-  const museumName = request.query.name;
-
   if (museumName) {
     const museumArr = museumData.data.filter((item) => {
      
-      return  item.name.toLowerCase() === museumName.toLowerCase();
+      return  item.id.toLowerCase() === museumName.toLowerCase();
         
     });
         // console.log(museumArr);
@@ -43,7 +56,7 @@ const getMuseum = async (request, response) => {
 }).catch((error)=>{
   console.log(error);
   });
-};
+}  };
 
 module.exports = {
   getMuseum,
