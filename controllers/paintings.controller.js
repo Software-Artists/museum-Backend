@@ -2,40 +2,57 @@
 
 const axios = require("axios");
 require("dotenv").config();
-
+const Cache = require("../helper/cache.helper");
+let cacheObject = new Cache();
 const { paintingsModel, Paintings } = require("../models/paintings.model");
 
-const museumData = require("../data/museum.json");
+// const museumData = require("../data/mus.json");
 
-const getPainting = (request, response) => {
-  const museumName = request.query.name;
+const getPainting = async (request, response) => {
+  const museumName = request.query.id;
 
-  if (museumName) {
-    const museumArr = museumData.find((item) => {
-      return item.name.toLowerCase() === museumName.toLowerCase();
-    });
-    console.log(museumArr);
 
-    let dataArr = new Paintings(
-      museumArr.name,
-      museumArr.location,
-      museumArr.art_image1,
-      museumArr.description_image1,
-      museumArr.art_image2,
-      museumArr.description_image2,
-      museumArr.art_image3,
-      museumArr.description_image3,
-      museumArr.art_image4,
-      museumArr.description_image4,
-      museumArr.art_image5,
-      museumArr.description_image5
-    );
-    //   console.log("Museum",Museum)
-    response.json(dataArr);
-  } else {
-    response.json(museumData);
+  const shutTime = 30000000;
+  const time = (Date.now() - cacheObject.timeStamp) > shutTime;
+  if (time) {
+   
+    cacheObject = new Cache();
   }
-};
+  const findData = cacheObject.paintings.find(
+    (mus) => mus.museumName === id
+  );
+  if (findData) {
+    response.json(findData.data);
+  } else {
+
+  await axios
+    .get("https://api-server-museum.herokuapp.com")
+    .then((museumData) => {
+      
+
+      if (museumName) {
+        const museumArr = museumData.data.filter((item) => {
+          return item.id.toLowerCase() === museumName.toLowerCase();
+        });
+        // console.log(museumArr);
+        let arr1 = museumArr.map((paint) => {
+          return new Paintings(
+            paint.name,
+            paint.title,
+            paint.artist_display,
+            paint.image_id
+          );
+        });
+        console.log("Museum", arr1);
+        response.json(arr1);
+      } else {
+        response.json(museumData.data);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}} ;
 
 module.exports = {
   getPainting,
