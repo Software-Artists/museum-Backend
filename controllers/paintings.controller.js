@@ -40,7 +40,8 @@ const getPainting = async (request, response) => {
             paint.name,
             paint.title,
             paint.artist_display,
-            paint.image_id
+            paint.image_id,
+            paint.id
           );
         });
         console.log("Museum", arr1);

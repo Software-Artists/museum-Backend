@@ -44,6 +44,7 @@ const getMuseum = async (request, response) => {
       mus.event_description_image,
       mus.ticket_price,
       mus.museum_image,
+      mus.id,
      
      
     );

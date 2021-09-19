@@ -22,12 +22,14 @@ class Paintings {
     title,
     artist_display,
     image_id,
+    id
    
   ) {
     this.name = name;
     this.title = title;
     this.artist_display = artist_display;
     this.image_id = image_id;
+    this.id=id
     
   }
 }
