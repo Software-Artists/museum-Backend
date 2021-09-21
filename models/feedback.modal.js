@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const feedBackSchema = new mongoose.Schema({
   name: { type: String },
   feedBackMessage: { type: String },
+  gender:{type : String},
 });
 
 //==================================================== FeedBack model:
