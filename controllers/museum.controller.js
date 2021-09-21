@@ -45,6 +45,7 @@ const getMuseum = async (request, response) => {
       mus.ticket_price,
       mus.museum_image,
       mus.id,
+      mus.date,
      
      
     );
