@@ -25,7 +25,48 @@ const seedFeedBack = require("./helper/feedback.seed");
 app.get("/feedback", getFeedBack);
 app.post("/feedback", createFeedBack);
 
+//==========================================================
+const {
+  getEvent,
+  addEvent,
+  deleteEvent
+} = require("./controllers/event.controller");
+
+
+app.get("/event", getEvent);
+app.post("/event", addEvent);
+app.delete("/event/:name", deleteEvent);
+
+
+
+const event = require("./helper/event.seed");
+// event() 
+
+
 //============================================================
+
+const {
+  getPaints,
+  addPaints,
+  deletePaints,
+
+} = require("./controllers/paints.controller");
+
+
+app.get("/paints", getPaints);
+app.post("/paints", addPaints);
+app.delete("/paints/:name", deletePaints);
+
+
+
+// const event = require("./helper/event.seed");
+// event() 
+
+
+
+
+
+//====================
 
 const getIndex = require("./controllers/index.controller");
 app.get("/", getIndex);
