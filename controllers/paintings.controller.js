@@ -4,13 +4,11 @@ const axios = require("axios");
 require("dotenv").config();
 const Cache = require("../helper/cache.helper");
 let cacheObject = new Cache();
-const { paintingsModel, Paintings } = require("../models/paintings.model");
+const { Paintings } = require("../models/paintings.model");
 
-// const museumData = require("../data/mus.json");
 
 const getPainting = async (request, response) => {
   const museumName = request.query.id;
-
 
   const shutTime = 30000000;
   const time = (Date.now() - cacheObject.timeStamp) > shutTime;
@@ -29,7 +27,6 @@ const getPainting = async (request, response) => {
     .get("https://api-server-museum.herokuapp.com")
     .then((museumData) => {
       
-
       if (museumName) {
         const museumArr = museumData.data.filter((item) => {
           return item.id.toLowerCase() === museumName.toLowerCase();

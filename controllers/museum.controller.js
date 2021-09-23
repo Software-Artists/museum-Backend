@@ -4,18 +4,15 @@ const axios = require("axios");
 require("dotenv").config();
 const Cache = require("../helper/cache.helper");
 let cacheObject = new Cache();
-const { museumModel, Museum } = require("../models/museum.model");
+const { Museum } = require("../models/museum.model");
 
-
-// const museumData = require("../data/mus.json");
-// console.log(museumData)
 const getMuseum = async (request, response) => {
-  // const museumData = await axios.get('https://api-server-museum.herokuapp.com');
+
   const museumName = request.query.id;
   
   const shutTime = 30000000;
   const time = (Date.now() - cacheObject.timeStamp) > shutTime;
-  if (time) {
+  if (time) {z
    
     cacheObject = new Cache();
   }
@@ -25,7 +22,6 @@ const getMuseum = async (request, response) => {
   if (findData) {
     response.json(findData.data);
   } else {
-
 
  await axios.get('https://api-server-museum.herokuapp.com').then((museumData)=>{
   
@@ -46,8 +42,7 @@ const getMuseum = async (request, response) => {
       mus.museum_image,
       mus.id,
       mus.date,
-     
-     
+         
     );
   });
       console.log("Museum",arr1)
