@@ -11,6 +11,10 @@ const museumSchema = new mongoose.Schema({
   ticket_price: { type: String },
 });
 
+
+const museumModel = mongoose.model("myMuseum", museumSchema);
+
+
 class Museum {
   constructor(
     name,
@@ -19,6 +23,8 @@ class Museum {
     event_description_image,
     ticket_price,
     museum_image,
+    id,
+    date
   ) {
     this.name = name;
     this.location = location;
@@ -26,10 +32,12 @@ class Museum {
     this.event_description_image=event_description_image;
     this.ticket_price=ticket_price;
     this.museum_image=museum_image;
+    this.id=id;
+    this.date=date;
+
     
   }
 }
-const museumModel = mongoose.model("myMuseum", museumSchema);
 
 module.exports = {
   museumModel,

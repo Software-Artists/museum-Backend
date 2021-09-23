@@ -2,20 +2,37 @@
 
 const axios = require("axios");
 require("dotenv").config();
-
+const Cache = require("../helper/cache.helper");
+let cacheObject = new Cache();
 const { paintingsModel, Paintings } = require("../models/paintings.model");
 
 // const museumData = require("../data/mus.json");
 
 const getPainting = async (request, response) => {
+  const museumName = request.query.id;
+
+
+  const shutTime = 30000000;
+  const time = (Date.now() - cacheObject.timeStamp) > shutTime;
+  if (time) {
+   
+    cacheObject = new Cache();
+  }
+  const findData = cacheObject.paintings.find(
+    (mus) => mus.museumName === id
+  );
+  if (findData) {
+    response.json(findData.data);
+  } else {
+
   await axios
     .get("https://api-server-museum.herokuapp.com")
     .then((museumData) => {
-      const museumName = request.query.name;
+      
 
       if (museumName) {
         const museumArr = museumData.data.filter((item) => {
-          return item.name.toLowerCase() === museumName.toLowerCase();
+          return item.id.toLowerCase() === museumName.toLowerCase();
         });
         // console.log(museumArr);
         let arr1 = museumArr.map((paint) => {
@@ -23,7 +40,8 @@ const getPainting = async (request, response) => {
             paint.name,
             paint.title,
             paint.artist_display,
-            paint.image_id
+            paint.image_id,
+            paint.id
           );
         });
         console.log("Museum", arr1);
@@ -35,7 +53,7 @@ const getPainting = async (request, response) => {
     .catch((error) => {
       console.log(error);
     });
-};
+}} ;
 
 module.exports = {
   getPainting,
